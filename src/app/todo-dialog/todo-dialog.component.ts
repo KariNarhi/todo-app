@@ -22,7 +22,6 @@ export interface DialogData {
 export class TodoDialogComponent implements OnInit {
   @Output() getTodos: EventEmitter<Todo[]> = new EventEmitter();
   todo: DialogData;
-  newTodo: Todo;
 
   constructor(public dialog: MatDialog, private todoService: TodoCrudService) {}
 
@@ -35,24 +34,23 @@ export class TodoDialogComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((todo: DialogData) => {
-      //console.log(todo);
-      this.todo = todo;
+      if (todo) {
+        this.todo = todo;
 
-      this.newTodo = {
-        id: uuid_v4(),
-        title: todo.title,
-        body: todo.desc,
-        completed: false,
-      };
+        let newTodo: Todo;
 
-      this.todoService
-        .addTodo(this.newTodo)
-        .then(() => {
-          this.getTodos.emit();
-        })
-        .then(() => {
-          this.newTodo = { id: null, title: '', body: '', completed: null }; // clear input form value
+        newTodo = {
+          id: uuid_v4(),
+          title: todo.title,
+          body: todo.desc,
+          completed: false,
+        };
+
+        this.todoService.addTodo(newTodo).then(() => {
+          todo.title = ''; // clear input form value
+          todo.desc = ''; // clear input form value
         });
+      }
     });
   }
 }
