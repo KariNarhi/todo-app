@@ -5,6 +5,14 @@
     <mat-label>Add a new Todo</mat-label>
     <input matInput [(ngModel)]="data.todo" />
   </mat-form-field>
+  <mat-form-field>
+    <mat-label>Todo description</mat-label>
+    <textarea
+      matInput
+      [(ngModel)]="data.desc"
+      placeholder="Ex. It makes me feel..."
+    ></textarea>
+  </mat-form-field>
 </div>
 <div
   fxLayout="row"

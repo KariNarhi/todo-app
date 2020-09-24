@@ -14,6 +14,7 @@ import {
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { TodoItemComponent } from './todo-item/todo-item.component';
+import { TodosComponent } from './todos/todos.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { TodoItemComponent } from './todo-item/todo-item.component';
     TodoDialogModal,
     SidenavComponent,
     TodoItemComponent,
+    TodosComponent,
   ],
   imports: [
     BrowserModule,

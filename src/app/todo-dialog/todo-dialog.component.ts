@@ -7,6 +7,7 @@ import {
 
 export interface DialogData {
   todo: string;
+  desc: string;
 }
 
 @Component({
@@ -16,6 +17,7 @@ export interface DialogData {
 })
 export class TodoDialogComponent implements OnInit {
   todo: string;
+  desc: string;
 
   constructor(public dialog: MatDialog) {}
 
@@ -24,7 +26,7 @@ export class TodoDialogComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(TodoDialogModal, {
       width: '250px',
-      data: { todo: this.todo },
+      data: { todo: this.todo, desc: this.desc },
     });
 
     dialogRef.afterClosed().subscribe((result: string) => {
