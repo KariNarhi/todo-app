@@ -1,3 +1,8 @@
-<button [ngClass]="setClasses()" (click)="onToggle(todo)">
-  {{ todo.title }}
+<button
+  mat-raised-button
+  color="primary"
+  [ngClass]="setClasses()"
+  (click)="onToggle(todo)"
+>
+  {{ todo.title | uppercase }}
 </button>

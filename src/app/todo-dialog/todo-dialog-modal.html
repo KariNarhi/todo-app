@@ -3,7 +3,7 @@
   <p>What do you wanna do?</p>
   <mat-form-field>
     <mat-label>Add a new Todo</mat-label>
-    <input matInput [(ngModel)]="data.todo" />
+    <input matInput [(ngModel)]="data.title" />
   </mat-form-field>
   <mat-form-field>
     <mat-label>Todo description</mat-label>
@@ -24,7 +24,7 @@
   <button
     mat-raised-button
     color="primary"
-    [mat-dialog-close]="data.todo"
+    [mat-dialog-close]="data"
     cdkFocusInitial
   >
     Add

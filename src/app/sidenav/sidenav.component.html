@@ -8,6 +8,13 @@
     [opened]="(isHandset$ | async) === false"
   >
     <mat-toolbar>Todos</mat-toolbar>
+    <hr />
+    <app-todos
+      fxLayout="column"
+      fxLayoutGap="10px"
+      fxLayoutAlign="center center"
+    ></app-todos>
+    <hr />
     <app-todo-dialog></app-todo-dialog>
   </mat-sidenav>
   <mat-sidenav-content>

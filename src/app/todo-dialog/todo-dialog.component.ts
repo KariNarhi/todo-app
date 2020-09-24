@@ -6,7 +6,7 @@ import {
 } from '@angular/material/dialog';
 
 export interface DialogData {
-  todo: string;
+  title: string;
   desc: string;
 }
 
@@ -16,8 +16,7 @@ export interface DialogData {
   styleUrls: ['./todo-dialog.component.css'],
 })
 export class TodoDialogComponent implements OnInit {
-  todo: string;
-  desc: string;
+  todo: DialogData;
 
   constructor(public dialog: MatDialog) {}
 
@@ -26,12 +25,12 @@ export class TodoDialogComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(TodoDialogModal, {
       width: '250px',
-      data: { todo: this.todo, desc: this.desc },
+      data: { ...this.todo },
     });
 
-    dialogRef.afterClosed().subscribe((result: string) => {
-      console.log('The dialog was closed');
-      this.todo = result;
+    dialogRef.afterClosed().subscribe((todo: DialogData) => {
+      //console.log(todo);
+      this.todo = todo;
     });
   }
 }
