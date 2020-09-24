@@ -1,8 +1,10 @@
-<ul>
-  <li *ngIf="animal">
-    You chose: <i>{{ animal }}</i>
-  </li>
-  <li>
-    <button mat-raised-button (click)="openDialog()">Pick one</button>
-  </li>
-</ul>
+<mat-list>
+  <mat-list-item *ngIf="todo">
+    <p>
+      {{ todo }}
+    </p>
+  </mat-list-item>
+  <mat-list-item>
+    <button mat-raised-button (click)="openDialog()">Add Todo</button>
+  </mat-list-item>
+</mat-list>

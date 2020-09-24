@@ -6,22 +6,8 @@ import {
 } from '@angular/material/dialog';
 
 export interface DialogData {
-  animal: string;
+  todo: string;
 }
-
-/* @Component({
-  selector: 'app-todo-dialog',
-  templateUrl: './todo-dialog.component.html',
-  styleUrls: ['./todo-dialog.component.css']
-})
-export class TodoDialogComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-} */
 
 @Component({
   selector: 'app-todo-dialog',
@@ -29,8 +15,7 @@ export class TodoDialogComponent implements OnInit {
   styleUrls: ['./todo-dialog.component.css'],
 })
 export class TodoDialogComponent implements OnInit {
-  animal: string;
-  name: string;
+  todo: string;
 
   constructor(public dialog: MatDialog) {}
 
@@ -39,12 +24,12 @@ export class TodoDialogComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(TodoDialogModal, {
       width: '250px',
-      data: { animal: this.animal },
+      data: { todo: this.todo },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: string) => {
       console.log('The dialog was closed');
-      this.animal = result;
+      this.todo = result;
     });
   }
 }

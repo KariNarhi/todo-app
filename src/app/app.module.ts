@@ -2,25 +2,35 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MaterialModule } from './material-module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import {
   TodoDialogComponent,
   TodoDialogModal,
 } from './todo-dialog/todo-dialog.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { TodoItemComponent } from './todo-item/todo-item.component';
 
 @NgModule({
-  declarations: [AppComponent, TodoDialogComponent, TodoDialogModal],
+  declarations: [
+    AppComponent,
+    TodoDialogComponent,
+    TodoDialogModal,
+    SidenavComponent,
+    TodoItemComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
+    LayoutModule,
+    FlexLayoutModule,
   ],
   providers: [
     {
