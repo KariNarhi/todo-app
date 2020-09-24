@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './models/Todo';
-import { Observable } from 'rxjs';
 
 import { v4 as uuid_v4 } from 'uuid';
 
@@ -34,5 +33,12 @@ export class TodoCrudService {
 
   getTodos() {
     return new Promise((resolve) => resolve(TODOS));
+  }
+
+  addTodo(todo: Todo) {
+    return new Promise((resolve) => {
+      TODOS.push(todo);
+      resolve(todo);
+    });
   }
 }

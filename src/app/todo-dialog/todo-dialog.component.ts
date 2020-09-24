@@ -1,9 +1,12 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { v4 as uuid_v4 } from 'uuid';
+import { Todo } from '../models/Todo';
+import { TodoCrudService } from '../todo-crud.service';
 
 export interface DialogData {
   title: string;
@@ -14,23 +17,42 @@ export interface DialogData {
   selector: 'app-todo-dialog',
   templateUrl: './todo-dialog.component.html',
   styleUrls: ['./todo-dialog.component.css'],
+  providers: [TodoCrudService],
 })
 export class TodoDialogComponent implements OnInit {
+  @Output() getTodos: EventEmitter<Todo[]> = new EventEmitter();
   todo: DialogData;
+  newTodo: Todo;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private todoService: TodoCrudService) {}
 
   ngOnInit(): void {}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(TodoDialogModal, {
-      width: '250px',
+      width: '500px',
       data: { ...this.todo },
     });
 
     dialogRef.afterClosed().subscribe((todo: DialogData) => {
       //console.log(todo);
       this.todo = todo;
+
+      this.newTodo = {
+        id: uuid_v4(),
+        title: todo.title,
+        body: todo.desc,
+        completed: false,
+      };
+
+      this.todoService
+        .addTodo(this.newTodo)
+        .then(() => {
+          this.getTodos.emit();
+        })
+        .then(() => {
+          this.newTodo = { id: null, title: '', body: '', completed: null }; // clear input form value
+        });
     });
   }
 }
