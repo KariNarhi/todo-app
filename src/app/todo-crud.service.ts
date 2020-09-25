@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './models/Todo';
-
 import { v4 as uuid_v4 } from 'uuid';
 
 // Kovakoodattu data.
@@ -55,9 +54,9 @@ export class TodoCrudService {
   }
 
   // Poista todo
-  deleteTodo(paratodo: Todo) {
+  deleteTodo(deltodo: Todo) {
     return new Promise((resolve) => {
-      const index = TODOS.findIndex((todo) => todo.id === paratodo.id);
+      const index = TODOS.findIndex((todo) => todo.id === deltodo.id);
       TODOS.splice(index, 1);
       resolve(true);
     });

@@ -5,6 +5,8 @@ import { TodoCrudService } from '../todo-crud.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
+import { FormGroup, FormControl } from '@angular/forms';
+
 @Component({
   selector: 'app-todo-edit-view',
   templateUrl: './todo-edit-view.component.html',
@@ -13,6 +15,11 @@ import { Subscription } from 'rxjs';
 export class TodoEditViewComponent implements OnInit, OnDestroy {
   todo: Todo;
   navigationSub: Subscription;
+
+  editForm = new FormGroup({
+    title: new FormControl(''),
+    body: new FormControl(''),
+  });
 
   constructor(
     private route: ActivatedRoute,
@@ -48,8 +55,13 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
       .then(() => this.router.navigateByUrl('/'));
   }
 
-  toggleCompleted(todo: Todo) {
-    this.todo.completed = !todo.completed;
+  onSubmit() {
+    console.log(this.editForm.value);
+  }
+
+  toggleCompleted(completed: boolean) {
+    console.log(this.todo.completed);
+    this.todo.completed = !completed;
   }
 
   ngOnInit(): void {}

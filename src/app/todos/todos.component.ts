@@ -11,15 +11,15 @@ import { TodoCrudService } from '../todo-crud.service';
 export class TodosComponent implements OnInit {
   todos: Todo[];
 
-  constructor(private todoService: TodoCrudService) {}
-
-  getTodos() {
-    return this.todoService.getTodos().then((todos: Todo[]) => {
-      this.todos = todos;
-    });
-  }
-
-  ngOnInit(): void {
+  constructor(private todoService: TodoCrudService) {
     this.getTodos();
   }
+
+  // Hae todot
+  async getTodos() {
+    const todos = await this.todoService.getTodos();
+    this.todos = todos;
+  }
+
+  ngOnInit(): void {}
 }

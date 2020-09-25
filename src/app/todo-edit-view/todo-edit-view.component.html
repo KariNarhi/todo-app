@@ -1,43 +1,49 @@
-<div
-  *ngIf="todo"
-  fxLayout="column"
-  fxLayoutAlign="center center"
-  class="editForm"
->
-  <h1>Edit Todo</h1>
-  <mat-form-field class="editFormField">
-    <mat-label>Change Todo</mat-label>
-    <input matInput [(ngModel)]="todo.title" />
-  </mat-form-field>
-  <mat-form-field class="editFormField">
-    <mat-label>Change Todo description</mat-label>
-    <textarea
-      matInput
-      [(ngModel)]="todo.body"
-      placeholder="Ex. It makes me feel..."
-    ></textarea>
-  </mat-form-field>
-  <mat-checkbox (change)="toggleCompleted(todo)" style="margin-bottom: 20px"
-    >Completed</mat-checkbox
+<div class="editPage" fxLayout="row" fxLayoutAlign="center center">
+  <form
+    [formGroup]="editForm"
+    class="editForm"
+    (ngSubmit)="onSubmit()"
+    fxLayout="column"
   >
-  <div fxLayout="row" fxLayoutGap="50px">
-    <button
-      mat-fab
-      color="warn"
-      matTooltip="Delete Todo"
-      matTooltipPosition="left"
-      (click)="delTodo(todo)"
+    <mat-form-field class="editFormField">
+      <mat-label>{{ todo.title }}</mat-label>
+      <input matInput formControlName="title" />
+    </mat-form-field>
+    <mat-form-field class="editFormField">
+      <mat-label>{{ todo.body }}</mat-label>
+      <textarea matInput formControlName="body"></textarea>
+    </mat-form-field>
+    <mat-checkbox
+      (change)="toggleCompleted(todo.completed)"
+      style="margin-bottom: 20px; margin-left: 20px"
+      >Mark as Completed</mat-checkbox
     >
-      <mat-icon>delete</mat-icon>
-    </button>
-    <button
-      mat-fab
-      color="accent"
-      matTooltip="Update Todo"
-      matTooltipPosition="right"
-      (click)="updateTodo()"
+    <div
+      fxLayout="row"
+      fxLayoutGap="50px"
+      fxLayoutAlign="center"
+      style="margin-bottom: 10px"
     >
-      <mat-icon>save</mat-icon>
-    </button>
-  </div>
+      <button
+        mat-fab
+        type="button"
+        color="warn"
+        matTooltip="Delete Todo"
+        matTooltipPosition="left"
+        (click)="delTodo(todo)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button
+        mat-fab
+        color="accent"
+        type="submit"
+        matTooltip="Update Todo"
+        matTooltipPosition="right"
+        (click)="updateTodo()"
+      >
+        <mat-icon>save</mat-icon>
+      </button>
+    </div>
+  </form>
 </div>
