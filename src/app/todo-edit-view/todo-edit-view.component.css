@@ -1,0 +1,9 @@
+.editForm {
+  height: 80%;
+  border: 2px solid rebeccapurple;
+  background-color: whitesmoke;
+}
+
+.editFormField {
+  width: 50%;
+}

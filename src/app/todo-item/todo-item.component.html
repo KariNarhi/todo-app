@@ -1,8 +1,5 @@
-<button
-  mat-raised-button
-  color="primary"
-  [ngClass]="setClasses()"
-  (click)="onToggle(todo)"
->
-  {{ todo.title | uppercase }}
+<button mat-raised-button color="primary" [ngClass]="setClasses()">
+  <a mat-button routerLink="/edit/{{ todo.id }}">{{
+    todo.title | uppercase
+  }}</a>
 </button>

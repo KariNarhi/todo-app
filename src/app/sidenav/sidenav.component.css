@@ -3,7 +3,11 @@
 }
 
 .sidenav {
-  width: 200px;
+  width: 250px;
+  background-color: wheat;
+}
+.sidenav-content {
+  background-color: bisque;
 }
 
 .sidenav .mat-toolbar {
