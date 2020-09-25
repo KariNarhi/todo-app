@@ -1,12 +1,9 @@
-import { Component, OnInit, Inject, EventEmitter, Output } from '@angular/core';
-import {
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA,
-} from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { v4 as uuid_v4 } from 'uuid';
 import { Todo } from '../models/Todo';
 import { TodoCrudService } from '../todo-crud.service';
+import { TodoDialogModalComponent } from '../todo-dialog-modal/todo-dialog-modal.component';
 
 export interface DialogData {
   title: string;
@@ -19,8 +16,8 @@ export interface DialogData {
   styleUrls: ['./todo-dialog.component.css'],
   providers: [TodoCrudService],
 })
+// Dialogin hallinta-puoli
 export class TodoDialogComponent implements OnInit {
-  @Output() getTodos: EventEmitter<Todo[]> = new EventEmitter();
   todo: DialogData;
 
   constructor(public dialog: MatDialog, private todoService: TodoCrudService) {}
@@ -28,9 +25,8 @@ export class TodoDialogComponent implements OnInit {
   ngOnInit(): void {}
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(TodoDialogModal, {
+    const dialogRef = this.dialog.open(TodoDialogModalComponent, {
       width: '500px',
-      data: { ...this.todo },
     });
 
     dialogRef.afterClosed().subscribe((todo: DialogData) => {
@@ -54,20 +50,5 @@ export class TodoDialogComponent implements OnInit {
         });
       }
     });
-  }
-}
-
-@Component({
-  selector: 'todo-dialog-modal',
-  templateUrl: 'todo-dialog-modal.html',
-})
-export class TodoDialogModal {
-  constructor(
-    public dialogRef: MatDialogRef<TodoDialogModal>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
-
-  onNoClick(): void {
-    this.dialogRef.close();
   }
 }

@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>Add Todo</h1>
+<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+  <div mat-dialog-content>
+    <p>What do you wanna do?</p>
+    <div fxLayout="column">
+      <mat-form-field>
+        <mat-label>Add a new Todo</mat-label>
+        <input matInput formControlName="title" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Todo description</mat-label>
+        <textarea
+          matInput
+          formControlName="body"
+          placeholder="Ex. It makes me feel..."
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayoutGap="20px"
+    fxLayoutAlign="space-evenly center"
+    mat-dialog-actions
+  >
+    <button mat-raised-button color="warn" type="button" (click)="onNoClick()">
+      Cancel
+    </button>
+    <button mat-raised-button color="primary" type="submit" cdkFocusInitial>
+      Add
+    </button>
+  </div>
+</form>
