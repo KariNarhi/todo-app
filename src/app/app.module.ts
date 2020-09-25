@@ -7,7 +7,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
-import { TodoDialogComponent } from './todo-dialog/todo-dialog.component';
+import { TodoDialogButtonComponent } from './todo-dialog-button/todo-dialog-button.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { TodoItemComponent } from './todo-item/todo-item.component';
@@ -20,7 +20,7 @@ import { TodoDialogModalComponent } from './todo-dialog-modal/todo-dialog-modal.
 @NgModule({
   declarations: [
     AppComponent,
-    TodoDialogComponent,
+    TodoDialogButtonComponent,
     SidenavComponent,
     TodoItemComponent,
     TodosComponent,

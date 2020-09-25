@@ -4,12 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { TodoDialogModalComponent } from '../todo-dialog-modal/todo-dialog-modal.component';
 
 @Component({
-  selector: 'app-todo-dialog',
-  templateUrl: './todo-dialog.component.html',
-  styleUrls: ['./todo-dialog.component.css'],
+  selector: 'app-todo-dialog-button',
+  templateUrl: './todo-dialog-button.component.html',
+  styleUrls: ['./todo-dialog-button.component.css'],
 })
 // Dialogin avauspainike-komponentti
-export class TodoDialogComponent implements OnInit {
+export class TodoDialogButtonComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {}
