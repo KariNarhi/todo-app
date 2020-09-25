@@ -5,13 +5,13 @@ import { v4 as uuid_v4 } from 'uuid';
 
 const TODOS: Todo[] = [
   {
-    id: uuid_v4(),
+    id: 'IACLI',
     title: 'Install Angular CLI',
     body: 'Start the project',
     completed: true,
   },
   {
-    id: uuid_v4(),
+    id: 'ABCDEFG',
     title: 'Create components',
     body: 'Build the skeleton',
     completed: true,
@@ -32,8 +32,14 @@ export class TodoCrudService {
   constructor() {}
 
   getTodos() {
-    return new Promise((resolve) => resolve(TODOS));
+    return new Promise<Todo[]>((resolve) => resolve(TODOS));
   }
+
+  /*  getTodo(id: string) {
+    const chosenTodo = TODOS.find((todo) => todo.id === id);
+
+    return new Promise<Todo>((resolve) => resolve(chosenTodo));
+  } */
 
   addTodo(todo: Todo) {
     return new Promise((resolve) => {

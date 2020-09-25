@@ -15,6 +15,9 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodosComponent } from './todos/todos.component';
+import { AppRoutingModule } from './app-routing.module';
+import { EmptyViewComponent } from './empty-view/empty-view.component';
+import { TodoEditViewComponent } from './todo-edit-view/todo-edit-view.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import { TodosComponent } from './todos/todos.component';
     SidenavComponent,
     TodoItemComponent,
     TodosComponent,
+    EmptyViewComponent,
+    TodoEditViewComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +38,7 @@ import { TodosComponent } from './todos/todos.component';
     ReactiveFormsModule,
     LayoutModule,
     FlexLayoutModule,
+    AppRoutingModule,
   ],
   providers: [
     {

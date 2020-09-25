@@ -46,6 +46,8 @@ export class TodoDialogComponent implements OnInit {
           completed: false,
         };
 
+        console.log(newTodo);
+
         this.todoService.addTodo(newTodo).then(() => {
           todo.title = ''; // clear input form value
           todo.desc = ''; // clear input form value

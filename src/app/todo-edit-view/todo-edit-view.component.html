@@ -1,0 +1,15 @@
+<h1>Edit Todo</h1>
+<div *ngIf="todo" fxLayout="column">
+  <mat-form-field>
+    <mat-label>Change Todo</mat-label>
+    <input matInput [(ngModel)]="todo.title" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Change Todo description</mat-label>
+    <textarea
+      matInput
+      [(ngModel)]="todo.body"
+      placeholder="Ex. It makes me feel..."
+    ></textarea>
+  </mat-form-field>
+</div>
