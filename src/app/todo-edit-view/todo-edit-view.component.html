@@ -1,9 +1,11 @@
 <div class="editPage" fxLayout="row" fxLayoutAlign="center center">
+  <h1 *ngIf="!todo">Loading...</h1>
   <form
     [formGroup]="editForm"
     class="editForm"
     (ngSubmit)="onSubmit()"
     fxLayout="column"
+    *ngIf="todo"
   >
     <mat-form-field class="editFormField">
       <mat-label>{{ todo.title }}</mat-label>

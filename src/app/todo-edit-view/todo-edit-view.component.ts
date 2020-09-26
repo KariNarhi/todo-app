@@ -60,13 +60,6 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     return (this.todo = todo);
   }
 
-  // Delete todo
-  delTodo(todo: Todo) {
-    this.todoCrudService.deleteTodo(todo).then(() => {
-      this.router.navigateByUrl('/');
-    });
-  }
-
   // Submit changes to TodoCrudService
   async onSubmit() {
     this.todo.title = this.editForm.value.title;
@@ -74,6 +67,13 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     this.todo.completed = this.editForm.value.completed;
     await this.todoCrudService.updateTodo(this.todo).then(() => {
       this.editForm.reset();
+      this.router.navigateByUrl('/');
+    });
+  }
+
+  // Delete todo
+  delTodo(todo: Todo) {
+    this.todoCrudService.deleteTodo(todo).then(() => {
       this.router.navigateByUrl('/');
     });
   }

@@ -54,8 +54,7 @@ export class TodoCrudService {
   // Update todo
   updateTodo(updatedTodo: Todo) {
     return new Promise((resolve) => {
-      /* const index = TODOS.findIndex((todo) => todo._id === updatedTodo._id);
-      TODOS[index] = updatedTodo; */
+      axios_db.put('/api/todos', updatedTodo);
       resolve(updatedTodo);
     });
   }

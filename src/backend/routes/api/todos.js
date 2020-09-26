@@ -19,4 +19,16 @@ router.post("/", (req, res) => {
   newTodo.save();
 });
 
+// PUT api/todos => Update a todo
+router.put("/", (req, res) => {
+  //console.log(req.body);
+  Todo.findById(req.body._id, (err, todo) => {
+    if (err) console.log(err);
+    todo.title = req.body.title;
+    todo.body = req.body.body;
+    todo.completed = req.body.completed;
+    todo.save();
+  });
+});
+
 module.exports = router;

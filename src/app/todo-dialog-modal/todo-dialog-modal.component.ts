@@ -35,7 +35,8 @@ export class TodoDialogModalComponent implements OnInit {
     // Send new todo to TodoCrudService, reset form values and close dialog
     this.todoService.addTodo(newTodo).then(() => {
       this.todoForm.reset();
-      this.dialogRef.close();
+      const message: string = 'Submitted';
+      this.dialogRef.close(message);
     });
   }
 
