@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './models/Todo';
-import { v4 as uuid_v4 } from 'uuid';
 
 // Hard coded data
 const TODOS: Todo[] = [
@@ -16,9 +15,9 @@ const TODOS: Todo[] = [
     body: 'Build the skeleton',
     completed: false,
   },
-  { id: uuid_v4(), title: 'Add styles', body: 'Styling', completed: false },
+  { id: '1234556', title: 'Add styles', body: 'Styling', completed: false },
   {
-    id: uuid_v4(),
+    id: 'AngularStuff',
     title: 'CRUD stuff',
     body: 'Data management',
     completed: false,
