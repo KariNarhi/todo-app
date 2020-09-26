@@ -1,1 +1,6 @@
-<app-todo-item *ngFor="let todo of todos" [todo]="todo"> </app-todo-item>
+<div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+  <app-todo-item *ngFor="let todo of todos" [todo]="todo"> </app-todo-item>
+</div>
+<hr />
+<br />
+<app-todo-dialog-button (onSubmit)="reloadTodos()"></app-todo-dialog-button>
