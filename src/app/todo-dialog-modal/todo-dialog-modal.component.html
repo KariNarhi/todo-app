@@ -9,11 +9,7 @@
       </mat-form-field>
       <mat-form-field>
         <mat-label>Todo description</mat-label>
-        <textarea
-          matInput
-          formControlName="body"
-          placeholder="Ex. It makes me feel..."
-        ></textarea>
+        <textarea matInput formControlName="body"></textarea>
       </mat-form-field>
     </div>
   </div>
@@ -26,7 +22,12 @@
     <button mat-raised-button color="warn" type="button" (click)="onNoClick()">
       Cancel
     </button>
-    <button mat-raised-button color="primary" type="submit" cdkFocusInitial>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="!todoForm.valid"
+    >
       Add
     </button>
   </div>

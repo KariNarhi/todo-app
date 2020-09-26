@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TodoCrudService } from '../todo-crud.service';
 import { v4 as uuid_v4 } from 'uuid';
 import { Todo } from '../models/Todo';
@@ -19,8 +19,8 @@ export class TodoDialogModalComponent implements OnInit {
   ) {}
 
   todoForm = new FormGroup({
-    title: new FormControl(''),
-    body: new FormControl(''),
+    title: new FormControl('', Validators.required),
+    body: new FormControl('', Validators.required),
   });
 
   ngOnInit(): void {}
@@ -34,8 +34,6 @@ export class TodoDialogModalComponent implements OnInit {
       body: this.todoForm.value.body,
       completed: false,
     };
-
-    console.log(newTodo);
 
     this.todoService.addTodo(newTodo).then(() => {
       this.todoForm.value.title = ''; // clear input form value

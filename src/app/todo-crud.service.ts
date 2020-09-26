@@ -8,13 +8,13 @@ const TODOS: Todo[] = [
     id: 'IACLI',
     title: 'Install Angular CLI',
     body: 'Start the project',
-    completed: true,
+    completed: false,
   },
   {
     id: 'ABCDEFG',
     title: 'Create components',
     body: 'Build the skeleton',
-    completed: true,
+    completed: false,
   },
   { id: uuid_v4(), title: 'Add styles', body: 'Styling', completed: false },
   {
@@ -37,19 +37,19 @@ export class TodoCrudService {
   }
 
   // Lisää todo
-  addTodo(todo: Todo) {
+  addTodo(newTodo: Todo) {
     return new Promise((resolve) => {
-      TODOS.push(todo);
-      resolve(todo);
+      TODOS.push(newTodo);
+      resolve(newTodo);
     });
   }
 
   // Päivitä todo
-  updateTodo(newTodo: Todo) {
+  updateTodo(updatedTodo: Todo) {
     return new Promise((resolve) => {
-      const index = TODOS.findIndex((todo) => todo.id === newTodo.id);
-      TODOS[index] = newTodo;
-      resolve(newTodo);
+      const index = TODOS.findIndex((todo) => todo.id === updatedTodo.id);
+      TODOS[index] = updatedTodo;
+      resolve(updatedTodo);
     });
   }
 
