@@ -9,4 +9,14 @@ router.get("/", (req, res) => {
   Todo.find().then((todos) => res.json(todos));
 });
 
+// POST api/todos => Add a todo
+router.post("/", (req, res) => {
+  const newTodo = new Todo({
+    title: req.body.title,
+    body: req.body.body,
+  });
+
+  newTodo.save();
+});
+
 module.exports = router;

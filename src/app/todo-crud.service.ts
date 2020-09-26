@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Todo } from './models/Todo';
+import { Todo, NewTodo } from './models/Todo';
 import axios, { AxiosResponse } from 'axios';
 const axios_db = axios.create({ baseURL: 'http://localhost:5000' });
 
@@ -44,9 +44,9 @@ export class TodoCrudService {
   }
 
   // Add todo
-  addTodo(newTodo: Todo) {
+  addTodo(newTodo: NewTodo) {
     return new Promise((resolve) => {
-      /* TODOS.push(newTodo); */
+      axios_db.post('/api/todos', newTodo);
       resolve(newTodo);
     });
   }

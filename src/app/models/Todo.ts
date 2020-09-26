@@ -1,7 +1,13 @@
 // Model for Todo data
 export class Todo {
-  id: string;
+  _id: string;
   title: string;
   body: string;
   completed: boolean;
+}
+
+// New todo model
+export class NewTodo {
+  title: string;
+  body: string;
 }

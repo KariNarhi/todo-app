@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { TodoCrudService } from '../todo-crud.service';
-import { v4 as uuid_v4 } from 'uuid';
-import { Todo } from '../models/Todo';
+import { NewTodo } from '../models/Todo';
 
 // Dialog-modal
 @Component({
@@ -27,14 +26,10 @@ export class TodoDialogModalComponent implements OnInit {
 
   // Create new todo from form values and close dialog
   onSubmit() {
-    let newTodo: Todo;
-
     // Create the new todo
-    newTodo = {
-      id: uuid_v4(),
+    const newTodo: NewTodo = {
       title: this.todoForm.value.title,
       body: this.todoForm.value.body,
-      completed: false,
     };
 
     // Send new todo to TodoCrudService, reset form values and close dialog

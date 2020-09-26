@@ -55,7 +55,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
   async getTodo(): Promise<Todo> {
     const todos = await this.todoCrudService.getTodos();
     const id: string = this.route.snapshot.paramMap.get('id');
-    const todo: Todo = todos.find((todo: Todo) => todo.id === id);
+    const todo: Todo = todos.find((todo: Todo) => todo._id === id);
     this.setFormValues(todo);
     return (this.todo = todo);
   }
