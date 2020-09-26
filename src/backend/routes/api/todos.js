@@ -31,4 +31,9 @@ router.put("/", (req, res) => {
   });
 });
 
+// DELETE api/todos/:id => Delete a todo
+router.delete("/:id", (req, res) => {
+  Todo.findById(req.params.id).then((todo) => todo.remove());
+});
+
 module.exports = router;
