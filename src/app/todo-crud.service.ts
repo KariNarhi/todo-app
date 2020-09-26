@@ -1,28 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Todo } from './models/Todo';
+import axios, { AxiosResponse } from 'axios';
+const axios_db = axios.create({ baseURL: 'http://localhost:5000' });
 
-// Hard coded data
+/* // Hard coded data
 const TODOS: Todo[] = [
   {
-    id: 'IACLI',
+    _id: 'IACLI',
     title: 'Install Angular CLI',
     body: 'Start the project',
     completed: false,
   },
   {
-    id: 'ABCDEFG',
+    _id: 'ABCDEFG',
     title: 'Create components',
     body: 'Build the skeleton',
     completed: false,
   },
-  { id: '1234556', title: 'Add styles', body: 'Styling', completed: false },
+  { _id: '1234556', title: 'Add styles', body: 'Styling', completed: false },
   {
-    id: 'AngularStuff',
+    _id: 'AngularStuff',
     title: 'CRUD stuff',
     body: 'Data management',
     completed: false,
   },
-];
+]; */
 
 @Injectable({
   providedIn: 'root',
@@ -31,14 +33,20 @@ export class TodoCrudService {
   constructor() {}
 
   // Get todos
-  getTodos() {
-    return new Promise<Todo[]>((resolve) => resolve(TODOS));
+  getTodos(): Promise<Todo[]> {
+    const promise: Promise<AxiosResponse<Todo[]>> = axios_db.get('/api/todos');
+
+    const dataPromise = promise.then((res: AxiosResponse<Todo[]>) => res.data);
+
+    return new Promise((resolve) => {
+      resolve(dataPromise);
+    });
   }
 
   // Add todo
   addTodo(newTodo: Todo) {
     return new Promise((resolve) => {
-      TODOS.push(newTodo);
+      /* TODOS.push(newTodo); */
       resolve(newTodo);
     });
   }
@@ -46,8 +54,8 @@ export class TodoCrudService {
   // Update todo
   updateTodo(updatedTodo: Todo) {
     return new Promise((resolve) => {
-      const index = TODOS.findIndex((todo) => todo.id === updatedTodo.id);
-      TODOS[index] = updatedTodo;
+      /* const index = TODOS.findIndex((todo) => todo._id === updatedTodo._id);
+      TODOS[index] = updatedTodo; */
       resolve(updatedTodo);
     });
   }
@@ -55,8 +63,8 @@ export class TodoCrudService {
   // Delete todo
   deleteTodo(deltodo: Todo) {
     return new Promise((resolve) => {
-      const index = TODOS.findIndex((todo) => todo.id === deltodo.id);
-      TODOS.splice(index, 1);
+      /* const index = TODOS.findIndex((todo) => todo._id === deltodo._id);
+      TODOS.splice(index, 1); */
       resolve(true);
     });
   }

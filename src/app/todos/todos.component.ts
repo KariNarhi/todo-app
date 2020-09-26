@@ -18,6 +18,7 @@ export class TodosComponent implements OnInit {
   // Get todos
   async getTodos() {
     const todos = await this.todoService.getTodos();
+    console.log(todos);
     this.todos = todos;
   }
 
