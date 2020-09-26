@@ -8,12 +8,13 @@ import { TodoDialogModalComponent } from '../todo-dialog-modal/todo-dialog-modal
   templateUrl: './todo-dialog-button.component.html',
   styleUrls: ['./todo-dialog-button.component.css'],
 })
-// Dialogin avauspainike-komponentti
+// Dialog opening button component
 export class TodoDialogButtonComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
+  // Open dialog when button is clicked
   openDialog(): void {
     this.dialog.open(TodoDialogModalComponent, {
       width: '500px',

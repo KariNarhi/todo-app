@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Todo } from './models/Todo';
 import { v4 as uuid_v4 } from 'uuid';
 
-// Kovakoodattu data.
+// Hard coded data
 const TODOS: Todo[] = [
   {
     id: 'IACLI',
@@ -31,12 +31,12 @@ const TODOS: Todo[] = [
 export class TodoCrudService {
   constructor() {}
 
-  // Hae todot
+  // Get todos
   getTodos() {
     return new Promise<Todo[]>((resolve) => resolve(TODOS));
   }
 
-  // Lisää todo
+  // Add todo
   addTodo(newTodo: Todo) {
     return new Promise((resolve) => {
       TODOS.push(newTodo);
@@ -44,7 +44,7 @@ export class TodoCrudService {
     });
   }
 
-  // Päivitä todo
+  // Update todo
   updateTodo(updatedTodo: Todo) {
     return new Promise((resolve) => {
       const index = TODOS.findIndex((todo) => todo.id === updatedTodo.id);
@@ -53,7 +53,7 @@ export class TodoCrudService {
     });
   }
 
-  // Poista todo
+  // Delete todo
   deleteTodo(deltodo: Todo) {
     return new Promise((resolve) => {
       const index = TODOS.findIndex((todo) => todo.id === deltodo.id);

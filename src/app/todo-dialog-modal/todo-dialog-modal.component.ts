@@ -5,7 +5,7 @@ import { TodoCrudService } from '../todo-crud.service';
 import { v4 as uuid_v4 } from 'uuid';
 import { Todo } from '../models/Todo';
 
-// Dialog-modaali
+// Dialog-modal
 @Component({
   selector: 'app-todo-dialog-modal',
   templateUrl: './todo-dialog-modal.component.html',
@@ -25,6 +25,7 @@ export class TodoDialogModalComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  // Create new todo from form values and close dialog
   onSubmit() {
     let newTodo: Todo;
 
@@ -42,6 +43,7 @@ export class TodoDialogModalComponent implements OnInit {
     });
   }
 
+  // Close dialog if not submitted
   onNoClick(): void {
     this.dialogRef.close();
   }

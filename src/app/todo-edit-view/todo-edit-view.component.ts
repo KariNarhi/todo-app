@@ -27,6 +27,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     private todoCrudService: TodoCrudService,
     private router: Router
   ) {
+    // Get selected todo
     this.getTodo();
     this.navigationSub = this.router.events.subscribe(
       (event: NavigationEnd) => {
@@ -39,6 +40,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     );
   }
 
+  // Init form values from todo data
   setFormValues(todo: Todo) {
     this.editForm.setValue({
       title: todo.title,
@@ -47,6 +49,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Get single selected todo
   async getTodo(): Promise<Todo> {
     const todos = await this.todoCrudService.getTodos();
     const id: string = this.route.snapshot.paramMap.get('id');
@@ -55,12 +58,14 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     return (this.todo = todo);
   }
 
+  // Delete todo
   delTodo(todo: Todo) {
     this.todoCrudService.deleteTodo(todo).then(() => {
       this.router.navigateByUrl('/');
     });
   }
 
+  // Submit changes to todo
   async onSubmit() {
     this.todo.title = this.editForm.value.title;
     this.todo.body = this.editForm.value.body;
@@ -74,6 +79,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   ngOnDestroy() {
+    // Ensure that data does not follow to another todo view
     if (this.navigationSub) {
       this.navigationSub.unsubscribe();
     }
