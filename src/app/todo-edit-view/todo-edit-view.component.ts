@@ -32,6 +32,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     this.navigationSub = this.router.events.subscribe(
       (event: NavigationEnd) => {
         if (event instanceof NavigationEnd) {
+          // Happens when navigating to another todo's edit view
           // Get another selected todo, reset both form and todoCompleted check value.
           this.getTodo();
           this.editForm.reset();
@@ -41,6 +42,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
   }
 
   // Init form values from todo data
+  // This prevents the form values from being empty at start
   setFormValues(todo: Todo) {
     this.editForm.setValue({
       title: todo.title,
@@ -65,7 +67,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Submit changes to todo
+  // Submit changes to TodoCrudService
   async onSubmit() {
     this.todo.title = this.editForm.value.title;
     this.todo.body = this.editForm.value.body;

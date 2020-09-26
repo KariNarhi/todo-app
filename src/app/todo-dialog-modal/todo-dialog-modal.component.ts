@@ -29,6 +29,7 @@ export class TodoDialogModalComponent implements OnInit {
   onSubmit() {
     let newTodo: Todo;
 
+    // Create the new todo
     newTodo = {
       id: uuid_v4(),
       title: this.todoForm.value.title,
@@ -36,14 +37,14 @@ export class TodoDialogModalComponent implements OnInit {
       completed: false,
     };
 
+    // Send new todo to TodoCrudService, reset form values and close dialog
     this.todoService.addTodo(newTodo).then(() => {
-      this.todoForm.value.title = ''; // clear input form value
-      this.todoForm.value.body = ''; // clear input form value
+      this.todoForm.reset();
       this.dialogRef.close();
     });
   }
 
-  // Close dialog if not submitted
+  // Close dialog when no submit
   onNoClick(): void {
     this.dialogRef.close();
   }
