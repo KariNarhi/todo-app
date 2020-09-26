@@ -3,29 +3,6 @@ import { Todo, NewTodo } from './models/Todo';
 import axios, { AxiosResponse } from 'axios';
 const axios_db = axios.create({ baseURL: 'http://localhost:5000' });
 
-/* // Hard coded data
-const TODOS: Todo[] = [
-  {
-    _id: 'IACLI',
-    title: 'Install Angular CLI',
-    body: 'Start the project',
-    completed: false,
-  },
-  {
-    _id: 'ABCDEFG',
-    title: 'Create components',
-    body: 'Build the skeleton',
-    completed: false,
-  },
-  { _id: '1234556', title: 'Add styles', body: 'Styling', completed: false },
-  {
-    _id: 'AngularStuff',
-    title: 'CRUD stuff',
-    body: 'Data management',
-    completed: false,
-  },
-]; */
-
 @Injectable({
   providedIn: 'root',
 })
@@ -62,8 +39,7 @@ export class TodoCrudService {
   // Delete todo
   deleteTodo(deltodo: Todo) {
     return new Promise((resolve) => {
-      /* const index = TODOS.findIndex((todo) => todo._id === deltodo._id);
-      TODOS.splice(index, 1); */
+      axios_db.delete(`/api/todos/${deltodo._id}`);
       resolve(true);
     });
   }
