@@ -11,6 +11,14 @@ const axios_db = axios.create({ baseURL: 'http://localhost:5000' });
 export class TodoCrudService {
   constructor(private http: HttpClient) {}
 
+  // Inform todo that it has been updated
+  public todoIsUpdated: BehaviorSubject<Todo> = new BehaviorSubject<Todo>({
+    _id: 'Default',
+    title: 'Default',
+    body: 'Default',
+    completed: false,
+  });
+
   // Get todos observable version
   getTodos_observable(): Observable<Todo[]> {
     return this.http.get<Todo[]>('/api/todos');
@@ -21,22 +29,9 @@ export class TodoCrudService {
     return this.http.post<Todo>('/api/todos', newTodo);
   }
 
-  // Add todo
-  addTodo(newTodo: NewTodo) {
-    return new Promise((resolve) => {
-      axios_db
-        .post('/api/todos', newTodo)
-        .then(() => resolve())
-        .catch((err) => console.log(err));
-    });
-  }
-
-  // Update todo
-  updateTodo(updatedTodo: Todo) {
-    return new Promise((resolve) => {
-      axios_db.put('/api/todos', updatedTodo);
-      resolve(updatedTodo);
-    });
+  // Update todo observable version
+  updateTodo_observable(updatedTodo: Todo): Observable<Todo> {
+    return this.http.put<Todo>('/api/todos', updatedTodo);
   }
 
   // Delete todo
@@ -47,18 +42,3 @@ export class TodoCrudService {
     });
   }
 }
-
-/*   // BehaviorSubject for single todo
-  // Sync Todo
-  private todoSource = new BehaviorSubject<Todo>({
-    _id: 'Default',
-    title: 'Default',
-    body: 'Default',
-    completed: false,
-  });
-
-  currentTodo = this.todoSource.asObservable();
-
-  updateTodoComponent(todo: Todo) {
-    this.todoSource.next(todo);
-  } */

@@ -1,4 +1,10 @@
-<div fxLayout="column" fxLayoutGap="10px" fxLayoutAlign="center center">
+<h1 *ngIf="!todos">Loading...</h1>
+<div
+  fxLayout="column"
+  fxLayoutGap="10px"
+  fxLayoutAlign="center center"
+  *ngIf="todos"
+>
   <app-todo-item *ngFor="let todo of todos" [todo]="todo"> </app-todo-item>
 </div>
 <hr />

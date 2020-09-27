@@ -6,26 +6,25 @@ import { TodoCrudService } from '../todo-crud.service';
   selector: 'app-todos',
   templateUrl: './todos.component.html',
   styleUrls: ['./todos.component.css'],
-  providers: [TodoCrudService],
 })
 export class TodosComponent implements OnInit {
   public todos: Todo[] = [];
 
-  constructor(private todoService: TodoCrudService) {}
+  constructor(private todoCrudService: TodoCrudService) {
+    // Get all todos
+    this.todoCrudService.getTodos_observable().subscribe((todos: Todo[]) => {
+      this.todos = todos;
+    });
+  }
 
   // Add new todo
   addNewTodo(addedTodo: NewTodo): void {
-    this.todoService
+    this.todoCrudService
       .addTodo_observable(addedTodo)
       .subscribe((newTodo: Todo) => {
         this.todos.push(newTodo);
       });
   }
 
-  ngOnInit(): void {
-    // Get all todos
-    this.todoService.getTodos_observable().subscribe((todos: Todo[]) => {
-      this.todos = todos;
-    });
-  }
+  ngOnInit(): void {}
 }

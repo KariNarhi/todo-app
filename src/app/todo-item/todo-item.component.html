@@ -1,7 +1,9 @@
+<h1 *ngIf="!todo">Loading...</h1>
 <a
+  *ngIf="todo"
   mat-raised-button
   color="warn"
-  [ngClass]="setClasses()"
-  routerLink="/edit/{{ todo._id }}"
-  >{{ todo.title | uppercase }}</a
+  [class.is-complete]="todo?.completed"
+  routerLink="/edit/{{ todo?._id }}"
+  >{{ todo?.title | uppercase }}</a
 >

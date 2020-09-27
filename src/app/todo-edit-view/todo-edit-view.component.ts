@@ -52,12 +52,13 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
   }
 
   // Get single selected todo
-  async getTodo(): Promise<Todo> {
-    const todos = await this.todoCrudService.getTodos();
-    const id: string = this.route.snapshot.paramMap.get('id');
-    const todo: Todo = todos.find((todo: Todo) => todo._id === id);
-    this.setFormValues(todo);
-    return (this.todo = todo);
+  getTodo() {
+    this.todoCrudService.getTodos_observable().subscribe((todos: Todo[]) => {
+      const id: string = this.route.snapshot.paramMap.get('id');
+      const todo: Todo = todos.find((todo: Todo) => todo._id === id);
+      this.setFormValues(todo);
+      this.todo = todo;
+    });
   }
 
   // Submit changes to TodoCrudService
@@ -65,10 +66,13 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     this.todo.title = this.editForm.value.title;
     this.todo.body = this.editForm.value.body;
     this.todo.completed = this.editForm.value.completed;
-    await this.todoCrudService.updateTodo(this.todo).then(() => {
-      this.editForm.reset();
-      this.router.navigateByUrl('/');
-    });
+    this.todoCrudService
+      .updateTodo_observable(this.todo)
+      .subscribe((updatedTodo: Todo) => {
+        this.editForm.reset();
+        this.todoCrudService.todoIsUpdated.next(updatedTodo);
+        this.router.navigateByUrl('/');
+      });
   }
 
   // Delete todo

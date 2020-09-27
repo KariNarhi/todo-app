@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TodoCrudService } from '../todo-crud.service';
 import { NewTodo } from '../models/Todo';
 
 // Dialog-modal
@@ -9,7 +8,6 @@ import { NewTodo } from '../models/Todo';
   selector: 'app-todo-dialog-modal',
   templateUrl: './todo-dialog-modal.component.html',
   styleUrls: ['./todo-dialog-modal.component.css'],
-  providers: [TodoCrudService],
 })
 export class TodoDialogModalComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<TodoDialogModalComponent>) {}
