@@ -9,6 +9,10 @@ router.get("/", (req, res) => {
   Todo.find().then((todos) => res.json(todos));
 });
 
+router.get("/:id", (req, res) => {
+  Todo.findById(req.params.id, (err, todo) => res.json(todo));
+});
+
 // POST api/todos => Add a todo
 router.post("/", (req, res) => {
   const newTodo = new Todo({
@@ -33,7 +37,9 @@ router.put("/", (req, res) => {
 
 // DELETE api/todos/:id => Delete a todo
 router.delete("/:id", (req, res) => {
-  Todo.findById(req.params.id).then((todo) => todo.remove());
+  Todo.findById(req.params.id)
+    .then((todo) => todo.remove())
+    .then((deletedTodo) => res.json(deletedTodo));
 });
 
 module.exports = router;

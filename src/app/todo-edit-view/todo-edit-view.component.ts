@@ -27,8 +27,6 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     private todoCrudService: TodoCrudService,
     private router: Router
   ) {
-    // Get selected todo
-    this.getTodo();
     this.navigationSub = this.router.events.subscribe(
       (event: NavigationEnd) => {
         if (event instanceof NavigationEnd) {
@@ -53,9 +51,8 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
 
   // Get single selected todo
   getTodo() {
-    this.todoCrudService.getTodos_observable().subscribe((todos: Todo[]) => {
-      const id: string = this.route.snapshot.paramMap.get('id');
-      const todo: Todo = todos.find((todo: Todo) => todo._id === id);
+    const id: string = this.route.snapshot.paramMap.get('id');
+    this.todoCrudService.getTodo_observable(id).subscribe((todo: Todo) => {
       this.setFormValues(todo);
       this.todo = todo;
     });
@@ -63,22 +60,27 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
 
   // Submit changes to TodoCrudService
   async onSubmit() {
+    // Gather updated/non-updated data
     this.todo.title = this.editForm.value.title;
     this.todo.body = this.editForm.value.body;
     this.todo.completed = this.editForm.value.completed;
+    // Send data to CRUD service
     this.todoCrudService
       .updateTodo_observable(this.todo)
       .subscribe((updatedTodo: Todo) => {
         this.editForm.reset();
         this.todoCrudService.todoIsUpdated.next(updatedTodo);
+        // Go to home view after updating
         this.router.navigateByUrl('/');
       });
   }
 
   // Delete todo
-  delTodo(todo: Todo) {
-    this.todoCrudService.deleteTodo(todo).then(() => {
-      this.router.navigateByUrl('/');
+  delTodo() {
+    // Go to home view after deleting
+    this.router.navigateByUrl('/');
+    this.todoCrudService.deleteTodo_observable(this.todo).subscribe(() => {
+      this.todoCrudService.todoIsDeleted.next(true);
     });
   }
 
@@ -86,8 +88,6 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // Ensure that data does not follow to another todo view
-    if (this.navigationSub) {
-      this.navigationSub.unsubscribe();
-    }
+    if (this.navigationSub) this.navigationSub.unsubscribe();
   }
 }

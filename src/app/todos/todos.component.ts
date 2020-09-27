@@ -12,6 +12,18 @@ export class TodosComponent implements OnInit {
 
   constructor(private todoCrudService: TodoCrudService) {
     // Get all todos
+    this.loadTodos();
+
+    // Reload after if todo deleted
+    this.todoCrudService.todoIsDeleted.subscribe((deleted: Boolean) => {
+      if (deleted) {
+        this.loadTodos();
+      }
+    });
+  }
+
+  // Get all todos
+  loadTodos() {
     this.todoCrudService.getTodos_observable().subscribe((todos: Todo[]) => {
       this.todos = todos;
     });

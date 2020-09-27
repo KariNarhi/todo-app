@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Todo, NewTodo } from './models/Todo';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import axios, { AxiosResponse } from 'axios';
+import { BehaviorSubject, Observable } from 'rxjs';
+import axios from 'axios';
 import { HttpClient } from '@angular/common/http';
 const axios_db = axios.create({ baseURL: 'http://localhost:5000' });
 
@@ -19,9 +19,19 @@ export class TodoCrudService {
     completed: false,
   });
 
+  // Inform todos array that a todo has been removed
+  public todoIsDeleted: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(
+    false
+  );
+
   // Get todos observable version
   getTodos_observable(): Observable<Todo[]> {
     return this.http.get<Todo[]>('/api/todos');
+  }
+
+  // Get single todo observable version
+  getTodo_observable(id: string): Observable<Todo> {
+    return this.http.get<Todo>(`/api/todos/${id}`);
   }
 
   // Add todo observable version
@@ -34,11 +44,16 @@ export class TodoCrudService {
     return this.http.put<Todo>('/api/todos', updatedTodo);
   }
 
-  // Delete todo
+  // Delete todo observable version
+  deleteTodo_observable(deltodo: Todo): Observable<Todo> {
+    return this.http.delete<Todo>(`/api/todos/${deltodo._id}`);
+  }
+
+  /*   // Delete todo
   deleteTodo(deltodo: Todo) {
     return new Promise((resolve) => {
       axios_db.delete(`/api/todos/${deltodo._id}`);
       resolve(true);
     });
-  }
+  } */
 }
