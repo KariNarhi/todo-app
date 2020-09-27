@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Todo } from '..//models/Todo';
+import { NewTodo, Todo } from '..//models/Todo';
 import { TodoCrudService } from '../todo-crud.service';
 
 @Component({
@@ -9,23 +9,23 @@ import { TodoCrudService } from '../todo-crud.service';
   providers: [TodoCrudService],
 })
 export class TodosComponent implements OnInit {
-  todos: Todo[];
+  public todos: Todo[] = [];
 
-  constructor(private todoService: TodoCrudService) {
-    this.getTodos();
+  constructor(private todoService: TodoCrudService) {}
+
+  // Add new todo
+  addNewTodo(addedTodo: NewTodo): void {
+    this.todoService
+      .addTodo_observable(addedTodo)
+      .subscribe((newTodo: Todo) => {
+        this.todos.push(newTodo);
+      });
   }
 
-  // Reload todos after adding new one
-  reloadTodos() {
-    this.getTodos();
+  ngOnInit(): void {
+    // Get all todos
+    this.todoService.getTodos_observable().subscribe((todos: Todo[]) => {
+      this.todos = todos;
+    });
   }
-
-  // Get all todos
-  async getTodos() {
-    const todos = await this.todoService.getTodos();
-    //console.log(todos);
-    this.todos = todos;
-  }
-
-  ngOnInit(): void {}
 }

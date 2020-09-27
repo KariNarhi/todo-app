@@ -12,10 +12,7 @@ import { NewTodo } from '../models/Todo';
   providers: [TodoCrudService],
 })
 export class TodoDialogModalComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<TodoDialogModalComponent>,
-    private todoService: TodoCrudService
-  ) {}
+  constructor(public dialogRef: MatDialogRef<TodoDialogModalComponent>) {}
 
   todoForm = new FormGroup({
     title: new FormControl('', Validators.required),
@@ -24,7 +21,7 @@ export class TodoDialogModalComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  // Create new todo from form values and close dialog
+  // Create new todo from form values
   onSubmit() {
     // Create the new todo
     const newTodo: NewTodo = {
@@ -32,12 +29,9 @@ export class TodoDialogModalComponent implements OnInit {
       body: this.todoForm.value.body,
     };
 
-    // Send new todo to TodoCrudService, reset form values and close dialog
-    this.todoService.addTodo(newTodo).then(() => {
-      this.todoForm.reset();
-      const message: string = 'Submitted';
-      this.dialogRef.close(message);
-    });
+    //Reset form values, close dialog and send new todo data to TodoComponent (dialog-button in between)
+    this.todoForm.reset();
+    this.dialogRef.close(newTodo);
   }
 
   // Close dialog when no submit

@@ -16,7 +16,7 @@ router.post("/", (req, res) => {
     body: req.body.body,
   });
 
-  newTodo.save();
+  newTodo.save().then((newtodo) => res.json(newtodo));
 });
 
 // PUT api/todos => Update a todo

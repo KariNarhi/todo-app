@@ -1,45 +1,33 @@
 import { Injectable } from '@angular/core';
 import { Todo, NewTodo } from './models/Todo';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import axios, { AxiosResponse } from 'axios';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 const axios_db = axios.create({ baseURL: 'http://localhost:5000' });
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoCrudService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  // Sync Todo
-  private todoSource = new BehaviorSubject<Todo>({
-    _id: 'Default',
-    title: 'Default',
-    body: 'Default',
-    completed: false,
-  });
-
-  currentTodo = this.todoSource.asObservable();
-
-  updateTodoComponent(todo: Todo) {
-    this.todoSource.next(todo);
+  // Get todos observable version
+  getTodos_observable(): Observable<Todo[]> {
+    return this.http.get<Todo[]>('/api/todos');
   }
 
-  // Get todos
-  getTodos(): Promise<Todo[]> {
-    const dataPromise: Promise<Todo[]> = axios_db
-      .get('/api/todos')
-      .then((res: AxiosResponse<Todo[]>) => res.data);
-
-    return new Promise((resolve) => {
-      resolve(dataPromise);
-    });
+  // Add todo observable version
+  addTodo_observable(newTodo: NewTodo): Observable<Todo> {
+    return this.http.post<Todo>('/api/todos', newTodo);
   }
 
   // Add todo
   addTodo(newTodo: NewTodo) {
     return new Promise((resolve) => {
-      axios_db.post('/api/todos', newTodo);
-      resolve(newTodo);
+      axios_db
+        .post('/api/todos', newTodo)
+        .then(() => resolve())
+        .catch((err) => console.log(err));
     });
   }
 
@@ -59,3 +47,18 @@ export class TodoCrudService {
     });
   }
 }
+
+/*   // BehaviorSubject for single todo
+  // Sync Todo
+  private todoSource = new BehaviorSubject<Todo>({
+    _id: 'Default',
+    title: 'Default',
+    body: 'Default',
+    completed: false,
+  });
+
+  currentTodo = this.todoSource.asObservable();
+
+  updateTodoComponent(todo: Todo) {
+    this.todoSource.next(todo);
+  } */
