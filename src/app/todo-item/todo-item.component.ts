@@ -11,11 +11,9 @@ import { TodoCrudService } from '../todo-crud.service';
 export class TodoItemComponent implements OnInit {
   @Input() todo: Todo;
 
-  constructor(private todoService: TodoCrudService) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    //this.todoService.currentTodo.subscribe((todo: Todo) => (this.todo = todo));
-  }
+  ngOnInit(): void {}
 
   // Set dynamic class
   setClasses() {

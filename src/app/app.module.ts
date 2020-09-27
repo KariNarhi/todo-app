@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material-module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { TodoDialogButtonComponent } from './todo-dialog-button/todo-dialog-button.component';
@@ -37,6 +38,7 @@ import { TodoDialogModalComponent } from './todo-dialog-modal/todo-dialog-modal.
     LayoutModule,
     FlexLayoutModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [
     {

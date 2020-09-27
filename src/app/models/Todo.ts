@@ -1,5 +1,5 @@
 // Model for Todo data
-export class Todo {
+export interface Todo {
   _id: string;
   title: string;
   body: string;
@@ -7,7 +7,7 @@ export class Todo {
 }
 
 // New todo model
-export class NewTodo {
+export interface NewTodo {
   title: string;
   body: string;
 }
