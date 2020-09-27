@@ -27,7 +27,7 @@ router.put("/", (req, res) => {
     todo.title = req.body.title;
     todo.body = req.body.body;
     todo.completed = req.body.completed;
-    todo.save();
+    todo.save().then((updatedTodo) => res.json(updatedTodo));
   });
 });
 

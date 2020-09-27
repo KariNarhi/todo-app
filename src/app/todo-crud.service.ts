@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Todo, NewTodo } from './models/Todo';
 import axios, { AxiosResponse } from 'axios';
+import { BehaviorSubject, Observable } from 'rxjs';
 const axios_db = axios.create({ baseURL: 'http://localhost:5000' });
 
 @Injectable({
@@ -9,11 +10,25 @@ const axios_db = axios.create({ baseURL: 'http://localhost:5000' });
 export class TodoCrudService {
   constructor() {}
 
+  // Sync Todo
+  private todoSource = new BehaviorSubject<Todo>({
+    _id: 'Default',
+    title: 'Default',
+    body: 'Default',
+    completed: false,
+  });
+
+  currentTodo = this.todoSource.asObservable();
+
+  updateTodoComponent(todo: Todo) {
+    this.todoSource.next(todo);
+  }
+
   // Get todos
   getTodos(): Promise<Todo[]> {
-    const promise: Promise<AxiosResponse<Todo[]>> = axios_db.get('/api/todos');
-
-    const dataPromise = promise.then((res: AxiosResponse<Todo[]>) => res.data);
+    const dataPromise: Promise<Todo[]> = axios_db
+      .get('/api/todos')
+      .then((res: AxiosResponse<Todo[]>) => res.data);
 
     return new Promise((resolve) => {
       resolve(dataPromise);
