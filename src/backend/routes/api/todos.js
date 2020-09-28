@@ -42,4 +42,5 @@ router.delete("/:id", (req, res) => {
     .then((deletedTodo) => res.json(deletedTodo));
 });
 
+// Export router with the defined http call responses
 module.exports = router;

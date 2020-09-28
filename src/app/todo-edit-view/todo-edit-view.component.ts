@@ -3,9 +3,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Todo } from '../models/Todo';
 import { TodoCrudService } from '../todo-crud.service';
 import { Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs';
-
+import { Observable, Subscription } from 'rxjs';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-todo-edit-view',
@@ -13,31 +14,51 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./todo-edit-view.component.css'],
 })
 export class TodoEditViewComponent implements OnInit, OnDestroy {
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private route: ActivatedRoute,
+    private todoCrudService: TodoCrudService,
+    private router: Router
+  ) {
+    // Subscribe to navigation event
+    this.navigationSub = this.router.events.subscribe(
+      (event: NavigationEnd) => {
+        if (event instanceof NavigationEnd) {
+          // Happens when navigating to another todo's edit view
+          // Reset both form and todoCompleted check value and get new todo values
+          this.editForm.reset();
+          this.getTodo();
+        }
+      }
+    );
+  }
+
   todo: Todo;
   navigationSub: Subscription;
 
+  // Edit view form group
   editForm = new FormGroup({
     title: new FormControl('', Validators.required),
     body: new FormControl('', Validators.required),
     completed: new FormControl(false),
   });
 
-  constructor(
-    private route: ActivatedRoute,
-    private todoCrudService: TodoCrudService,
-    private router: Router
-  ) {
-    this.navigationSub = this.router.events.subscribe(
-      (event: NavigationEnd) => {
-        if (event instanceof NavigationEnd) {
-          // Happens when navigating to another todo's edit view
-          // Get another selected todo, reset both form and todoCompleted check value.
-          this.getTodo();
-          this.editForm.reset();
-        }
-      }
-    );
+  // Get title and body for error messages
+  get title() {
+    return this.editForm.get('title');
   }
+
+  get body() {
+    return this.editForm.get('body');
+  }
+
+  // Change style class when breakpoint changes to handset
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map((result) => result.matches),
+      shareReplay()
+    );
 
   // Init form values from todo data
   // This prevents the form values from being empty at start
@@ -69,6 +90,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
       .updateTodo_observable(this.todo)
       .subscribe((updatedTodo: Todo) => {
         this.editForm.reset();
+        // Inform todo item that it's been updated
         this.todoCrudService.todoIsUpdated.next(updatedTodo);
         // Go to home view after updating
         this.router.navigateByUrl('/');
@@ -79,6 +101,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
   delTodo() {
     // Go to home view after deleting
     this.router.navigateByUrl('/');
+    // Inform todos array that a todo has been deleted
     this.todoCrudService.deleteTodo_observable(this.todo).subscribe(() => {
       this.todoCrudService.todoIsDeleted.next(true);
     });

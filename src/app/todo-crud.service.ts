@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Todo, NewTodo } from './models/Todo';
 import { BehaviorSubject, Observable } from 'rxjs';
-import axios from 'axios';
 import { HttpClient } from '@angular/common/http';
-const axios_db = axios.create({ baseURL: 'http://localhost:5000' });
 
 @Injectable({
   providedIn: 'root',
@@ -48,12 +46,4 @@ export class TodoCrudService {
   deleteTodo_observable(deltodo: Todo): Observable<Todo> {
     return this.http.delete<Todo>(`/api/todos/${deltodo._id}`);
   }
-
-  /*   // Delete todo
-  deleteTodo(deltodo: Todo) {
-    return new Promise((resolve) => {
-      axios_db.delete(`/api/todos/${deltodo._id}`);
-      resolve(true);
-    });
-  } */
 }

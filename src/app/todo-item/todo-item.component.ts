@@ -10,6 +10,7 @@ import { TodoCrudService } from '../todo-crud.service';
 })
 export class TodoItemComponent implements OnInit, OnDestroy {
   @Input() todo: Todo = {
+    // Initial values for todo item
     _id: 'Default',
     title: 'Default',
     body: 'Default',
@@ -32,6 +33,7 @@ export class TodoItemComponent implements OnInit, OnDestroy {
   ngOnInit(): void {}
 
   ngOnDestroy() {
+    // Unsubscribe from update info
     if (this.updateSub) this.updateSub.unsubscribe();
   }
 }

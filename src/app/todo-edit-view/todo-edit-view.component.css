@@ -12,6 +12,16 @@
   margin: auto;
 }
 
+.editForm_Handset {
+  border: 3px solid rebeccapurple;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  width: 90%;
+  height: 60%;
+  min-height: 312px;
+  margin: auto;
+}
+
 .editFormField {
   margin: 5px;
 }

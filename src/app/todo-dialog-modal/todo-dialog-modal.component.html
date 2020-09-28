@@ -1,15 +1,26 @@
 <h1 mat-dialog-title>Add Todo</h1>
-<form [formGroup]="todoForm" (ngSubmit)="onSubmit()">
+<form
+  [formGroup]="todoForm"
+  (ngSubmit)="onSubmit()"
+  fxLayout="column"
+  fxLayoutGap="10px"
+>
   <div mat-dialog-content>
     <p>What do you wanna do?</p>
-    <div fxLayout="column">
+    <div fxLayout="column" fxLayoutGap="10px">
       <mat-form-field>
         <mat-label>Add a new Todo</mat-label>
         <input matInput formControlName="title" />
+        <mat-error *ngIf="title.invalid && title.touched"
+          >Please give a Todo title</mat-error
+        >
       </mat-form-field>
       <mat-form-field>
         <mat-label>Todo description</mat-label>
         <textarea matInput formControlName="body"></textarea>
+        <mat-error *ngIf="body.invalid && body.touched"
+          >Please give a Todo text</mat-error
+        >
       </mat-form-field>
     </div>
   </div>

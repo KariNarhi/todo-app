@@ -12,12 +12,20 @@ import { NewTodo } from '../models/Todo';
 export class TodoDialogModalComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<TodoDialogModalComponent>) {}
 
+  // Dialog form group
   todoForm = new FormGroup({
     title: new FormControl('', Validators.required),
     body: new FormControl('', Validators.required),
   });
 
-  ngOnInit(): void {}
+  // Get title and body for error messages
+  get title() {
+    return this.todoForm.get('title');
+  }
+
+  get body() {
+    return this.todoForm.get('body');
+  }
 
   // Create new todo from form values
   onSubmit() {
@@ -36,4 +44,6 @@ export class TodoDialogModalComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  ngOnInit(): void {}
 }

@@ -15,7 +15,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodosComponent } from './todos/todos.component';
 import { AppRoutingModule } from './app-routing.module';
-import { EmptyViewComponent } from './empty-view/empty-view.component';
+import { HomeViewComponent } from './home-view/home-view.component';
 import { TodoEditViewComponent } from './todo-edit-view/todo-edit-view.component';
 import { TodoDialogModalComponent } from './todo-dialog-modal/todo-dialog-modal.component';
 
@@ -26,7 +26,7 @@ import { TodoDialogModalComponent } from './todo-dialog-modal/todo-dialog-modal.
     SidenavComponent,
     TodoItemComponent,
     TodosComponent,
-    EmptyViewComponent,
+    HomeViewComponent,
     TodoEditViewComponent,
     TodoDialogModalComponent,
   ],
