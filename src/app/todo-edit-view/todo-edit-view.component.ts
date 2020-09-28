@@ -73,7 +73,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
   // Get single selected todo
   getTodo() {
     const id: string = this.route.snapshot.paramMap.get('id');
-    this.todoCrudService.getTodo_observable(id).subscribe((todo: Todo) => {
+    this.todoCrudService.getTodo(id).then((todo: Todo) => {
       this.setFormValues(todo);
       this.todo = todo;
     });
@@ -86,15 +86,13 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     this.todo.body = this.editForm.value.body;
     this.todo.completed = this.editForm.value.completed;
     // Send data to CRUD service
-    this.todoCrudService
-      .updateTodo_observable(this.todo)
-      .subscribe((updatedTodo: Todo) => {
-        this.editForm.reset();
-        // Inform todo item that it's been updated
-        this.todoCrudService.todoIsUpdated.next(updatedTodo);
-        // Go to home view after updating
-        this.router.navigateByUrl('/');
-      });
+    this.todoCrudService.updateTodo(this.todo).then((updatedTodo: Todo) => {
+      this.editForm.reset();
+      // Inform todo item that it's been updated
+      this.todoCrudService.todoIsUpdated.next(updatedTodo);
+      // Go to home view after updating
+      this.router.navigateByUrl('/');
+    });
   }
 
   // Delete todo
@@ -102,7 +100,7 @@ export class TodoEditViewComponent implements OnInit, OnDestroy {
     // Go to home view after deleting
     this.router.navigateByUrl('/');
     // Inform todos array that a todo has been deleted
-    this.todoCrudService.deleteTodo_observable(this.todo).subscribe(() => {
+    this.todoCrudService.deleteTodo(this.todo).then(() => {
       this.todoCrudService.todoIsDeleted.next(true);
     });
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NewTodo, Todo } from '..//models/Todo';
+import { Todo } from '..//models/Todo';
 import { TodoCrudService } from '../todo-crud.service';
 
 @Component({
@@ -24,18 +24,16 @@ export class TodosComponent implements OnInit {
 
   // Get all todos
   loadTodos() {
-    this.todoCrudService.getTodos_observable().subscribe((todos: Todo[]) => {
+    this.todoCrudService.getTodos().then((todos: Todo[]) => {
       this.todos = todos;
     });
   }
 
   // Add new todo
-  addNewTodo(addedTodo: NewTodo): void {
-    this.todoCrudService
-      .addTodo_observable(addedTodo)
-      .subscribe((newTodo: Todo) => {
-        this.todos.push(newTodo);
-      });
+  addNewTodo(addedTodo: Todo): void {
+    this.todoCrudService.addTodo(addedTodo).then((newTodo: Todo) => {
+      this.todos.push(newTodo);
+    });
   }
 
   ngOnInit(): void {}

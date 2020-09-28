@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { NewTodo } from '../models/Todo';
+import { Todo } from '../models/Todo';
+import { v4 as uuid_v4 } from 'uuid';
 
 // Dialog-modal
 @Component({
@@ -30,9 +31,11 @@ export class TodoDialogModalComponent implements OnInit {
   // Create new todo from form values
   onSubmit() {
     // Create the new todo
-    const newTodo: NewTodo = {
+    const newTodo: Todo = {
+      _id: uuid_v4(),
       title: this.todoForm.value.title,
       body: this.todoForm.value.body,
+      completed: false,
     };
 
     //Reset form values, close dialog and send new todo data to TodoComponent (dialog-button in between)

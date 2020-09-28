@@ -5,9 +5,3 @@ export interface Todo {
   body: string;
   completed: boolean;
 }
-
-// New todo model
-export interface NewTodo {
-  title: string;
-  body: string;
-}

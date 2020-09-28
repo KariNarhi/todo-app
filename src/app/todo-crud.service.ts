@@ -1,13 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Todo, NewTodo } from './models/Todo';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { Todo } from './models/Todo';
+import { BehaviorSubject } from 'rxjs';
+
+// Hard coded data
+const TODOS: Todo[] = [
+  {
+    _id: 'IACLI',
+    title: 'Install Angular CLI',
+    body: 'Start the project',
+    completed: false,
+  },
+  {
+    _id: 'ABCDEFG',
+    title: 'Create components',
+    body: 'Build the skeleton',
+    completed: false,
+  },
+  { _id: '1234556', title: 'Add styles', body: 'Styling', completed: false },
+  {
+    _id: 'AngularStuff',
+    title: 'CRUD stuff',
+    body: 'Data management',
+    completed: false,
+  },
+];
 
 @Injectable({
   providedIn: 'root',
 })
 export class TodoCrudService {
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   // Inform todo that it has been updated
   public todoIsUpdated: BehaviorSubject<Todo> = new BehaviorSubject<Todo>({
@@ -22,28 +44,40 @@ export class TodoCrudService {
     false
   );
 
-  // Get todos observable version
-  getTodos_observable(): Observable<Todo[]> {
-    return this.http.get<Todo[]>('/api/todos');
+  // Get todos
+  getTodos(): Promise<Todo[]> {
+    return new Promise<Todo[]>((resolve) => resolve(TODOS));
   }
 
-  // Get single todo observable version
-  getTodo_observable(id: string): Observable<Todo> {
-    return this.http.get<Todo>(`/api/todos/${id}`);
+  // Get todos
+  getTodo(id: string): Promise<Todo> {
+    const singleTodo = TODOS.find((todo) => todo._id === id);
+    return new Promise<Todo>((resolve) => resolve(singleTodo));
   }
 
-  // Add todo observable version
-  addTodo_observable(newTodo: NewTodo): Observable<Todo> {
-    return this.http.post<Todo>('/api/todos', newTodo);
+  // Add todo
+  addTodo(newTodo: Todo) {
+    return new Promise((resolve) => {
+      //TODOS.push(newTodo);
+      resolve(newTodo);
+    });
   }
 
-  // Update todo observable version
-  updateTodo_observable(updatedTodo: Todo): Observable<Todo> {
-    return this.http.put<Todo>('/api/todos', updatedTodo);
+  // Update todo
+  updateTodo(updatedTodo: Todo) {
+    return new Promise((resolve) => {
+      const index = TODOS.findIndex((todo) => todo._id === updatedTodo._id);
+      TODOS[index] = updatedTodo;
+      resolve(updatedTodo);
+    });
   }
 
-  // Delete todo observable version
-  deleteTodo_observable(deltodo: Todo): Observable<Todo> {
-    return this.http.delete<Todo>(`/api/todos/${deltodo._id}`);
+  // Delete todo
+  deleteTodo(deltodo: Todo) {
+    return new Promise((resolve) => {
+      const index = TODOS.findIndex((todo) => todo._id === deltodo._id);
+      TODOS.splice(index, 1);
+      resolve(true);
+    });
   }
 }
