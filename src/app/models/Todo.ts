@@ -1,6 +1,6 @@
 // Model for Todo data
-export class Todo {
-  id: string;
+export interface Todo {
+  _id: string;
   title: string;
   body: string;
   completed: boolean;

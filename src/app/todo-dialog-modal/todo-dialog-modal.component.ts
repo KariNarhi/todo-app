@@ -1,52 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { TodoCrudService } from '../todo-crud.service';
-import { v4 as uuid_v4 } from 'uuid';
 import { Todo } from '../models/Todo';
+import { v4 as uuid_v4 } from 'uuid';
 
 // Dialog-modal
 @Component({
   selector: 'app-todo-dialog-modal',
   templateUrl: './todo-dialog-modal.component.html',
   styleUrls: ['./todo-dialog-modal.component.css'],
-  providers: [TodoCrudService],
 })
 export class TodoDialogModalComponent implements OnInit {
-  constructor(
-    public dialogRef: MatDialogRef<TodoDialogModalComponent>,
-    private todoService: TodoCrudService
-  ) {}
+  constructor(public dialogRef: MatDialogRef<TodoDialogModalComponent>) {}
 
+  // Dialog form group
   todoForm = new FormGroup({
     title: new FormControl('', Validators.required),
     body: new FormControl('', Validators.required),
   });
 
-  ngOnInit(): void {}
+  // Get title and body for error messages
+  get title() {
+    return this.todoForm.get('title');
+  }
 
-  // Create new todo from form values and close dialog
+  get body() {
+    return this.todoForm.get('body');
+  }
+
+  // Create new todo from form values
   onSubmit() {
-    let newTodo: Todo;
-
     // Create the new todo
-    newTodo = {
-      id: uuid_v4(),
+    const newTodo: Todo = {
+      _id: uuid_v4(),
       title: this.todoForm.value.title,
       body: this.todoForm.value.body,
       completed: false,
     };
 
-    // Send new todo to TodoCrudService, reset form values and close dialog
-    this.todoService.addTodo(newTodo).then(() => {
-      this.todoForm.reset();
-      const message: string = 'Submitted';
-      this.dialogRef.close(message);
-    });
+    //Reset form values, close dialog and send new todo data to TodoComponent (dialog-button in between)
+    this.todoForm.reset();
+    this.dialogRef.close(newTodo);
   }
 
   // Close dialog when no submit
   onNoClick(): void {
     this.dialogRef.close();
   }
+
+  ngOnInit(): void {}
 }

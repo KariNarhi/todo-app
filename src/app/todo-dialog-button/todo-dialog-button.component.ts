@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Todo } from '../models/Todo';
 
 import { TodoDialogModalComponent } from '../todo-dialog-modal/todo-dialog-modal.component';
 
@@ -11,8 +12,7 @@ import { TodoDialogModalComponent } from '../todo-dialog-modal/todo-dialog-modal
 // Dialog opening button component
 export class TodoDialogButtonComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
-
-  @Output() onSubmit = new EventEmitter();
+  @Output() onSubmit = new EventEmitter<Todo>();
 
   ngOnInit(): void {}
 
@@ -23,10 +23,10 @@ export class TodoDialogButtonComponent implements OnInit {
         width: '500px',
       })
       .afterClosed()
-      .subscribe((message: string) => {
-        if (message === 'Submitted') {
-          console.log(message);
-          this.onSubmit.emit();
+      .subscribe((addedTodo: Todo) => {
+        if (addedTodo) {
+          // Emit event to TodosComponent on submit
+          this.onSubmit.emit(addedTodo);
         }
       });
   }

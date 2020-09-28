@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material-module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule } from '@angular/common/http';
+import { TodoCrudService } from './todo-crud.service';
 
 import { AppComponent } from './app.component';
 import { TodoDialogButtonComponent } from './todo-dialog-button/todo-dialog-button.component';
@@ -13,7 +15,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { TodoItemComponent } from './todo-item/todo-item.component';
 import { TodosComponent } from './todos/todos.component';
 import { AppRoutingModule } from './app-routing.module';
-import { EmptyViewComponent } from './empty-view/empty-view.component';
+import { HomeViewComponent } from './home-view/home-view.component';
 import { TodoEditViewComponent } from './todo-edit-view/todo-edit-view.component';
 import { TodoDialogModalComponent } from './todo-dialog-modal/todo-dialog-modal.component';
 
@@ -24,7 +26,7 @@ import { TodoDialogModalComponent } from './todo-dialog-modal/todo-dialog-modal.
     SidenavComponent,
     TodoItemComponent,
     TodosComponent,
-    EmptyViewComponent,
+    HomeViewComponent,
     TodoEditViewComponent,
     TodoDialogModalComponent,
   ],
@@ -37,12 +39,14 @@ import { TodoDialogModalComponent } from './todo-dialog-modal/todo-dialog-modal.
     LayoutModule,
     FlexLayoutModule,
     AppRoutingModule,
+    HttpClientModule,
   ],
   providers: [
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'fill' },
     },
+    TodoCrudService,
   ],
   bootstrap: [AppComponent],
 })
