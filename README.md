@@ -1,6 +1,12 @@
 # Todo App
 
-This is a simple Todo app made with Angular. It also uses Angular Material components and Flex-layout.
+This is a simple Todo app made with Angular (actually a MEAN-stack).
+
+It also uses Angular Material components and Flex-layout.
+
+The data comes from MongoDB database running with Express server.
+
+(MongoDB installation required or use Docker image).
 
 ---
 
