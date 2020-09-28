@@ -1,6 +1,6 @@
 # Todo App
 
-This is a simple Todo app made with Angular. It also uses Angular Material components and Flex-layout.
+This is a simple Todo app made with Angular. It also uses Angular Material components and Flex-layout. The data is hard coded into the CRUD service.
 
 ---
 
